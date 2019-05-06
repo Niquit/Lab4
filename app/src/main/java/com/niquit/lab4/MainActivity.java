@@ -24,7 +24,11 @@ public class MainActivity extends AppCompatActivity {
             int requestCode, int resultCode, Intent data) {
         if(requestCode==1 && resultCode==RESULT_OK) {
             Bundle extras = data.getExtras();
-            String nowy = (String)extras.get("wpis"); target.add(nowy); adapter.notifyDataSetChanged();
+//            String nowy = (String)extras.get("wpis"); target.add(nowy); adapter.notifyDataSetChanged();
+            Animal nowy = (Animal) extras.get("nowy");
+            this.db.dodaj(nowy);
+            adapter.changeCursor(db.lista());
+            adapter.notifyDataSetChanged();
         } }
 
     public void nowyWpis(MenuItem mi)
