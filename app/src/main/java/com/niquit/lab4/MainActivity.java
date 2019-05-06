@@ -1,7 +1,11 @@
 package com.niquit.lab4;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -13,6 +17,24 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> target;
     private ArrayAdapter adapter;
 
+    @Override
+    protected void onActivityResult(
+            int requestCode, int resultCode, Intent data) {
+        if(requestCode==1 && resultCode==RESULT_OK) {
+            Bundle extras = data.getExtras();
+            String nowy = (String)extras.get("wpis"); target.add(nowy); adapter.notifyDataSetChanged();
+        } }
+
+    public void nowyWpis(MenuItem mi)
+    {
+        Intent intencja = new Intent(this, DodajWpis.class);
+        startActivityForResult(intencja, 1); }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater(); inflater.inflate(R.menu.main_menu, menu); return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
